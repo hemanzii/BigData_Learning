@@ -24,7 +24,7 @@
  5. 大数据软件 ：链接：[https://pan.baidu.com/s/17fEq3IPVoeE29cWCrSpO8Q](https://pan.baidu.com/s/17fEq3IPVoeE29cWCrSpO8Q) 提取码：finf 
 
 
-# 【Task 2】搭建Hadoop集群(3day)
+# 【Task 2】搭建Hadoop集群(2day)
 
 1. 搭建HA的Hadoop集群并验证，3节点(1主2从)，理解HA/Federation
 2. 阅读Google三大论文
@@ -47,7 +47,7 @@
 ![image](./pic/集群规划2.jpg)
 
 
-# 【Task 3】HDFS常用命令/API+上传下载过程
+# 【Task 3】HDFS常用命令/API+上传下载过程(2day)
 1. 认识HDFS
 2. 熟悉hdfs常用命令
 3. Python操作HDFS的其他API
@@ -63,7 +63,7 @@
 
 
 
-# 【Task5】Spark常用API
+# 【Task5】Spark常用API(3day)
  1. spark集群搭建
  2. 初步认识Spark （解决什么问题，为什么比Hadoop快，基本组件及架构Driver/）
  3. 理解spark的RDD
@@ -88,7 +88,7 @@
 运行spark-shell时添加jar：spark-shell --jars [jblas path] /jblas-1.2.4.jar
 
 
-# 【Task6】Hive原理及其使用
+# 【Task6】Hive原理及其使用(2day)
 1. 安装MSQL、Hive
 2. 采用MySQL作为hive元数据库
 3. Hive与传统RDBMS的区别
@@ -112,7 +112,7 @@
 
 
 
-# 【Task7】实践
+# 【Task7】实践(2day)
 1. 计算每个content的CTR。
 数据集下载：链接：https://pan.baidu.com/s/1YDvBWp35xKLg5zsysEjDGA 提取码：rpgs 
 2. 【选做】 使用Spark实现ALS矩阵分解算法，
