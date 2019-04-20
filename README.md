@@ -40,11 +40,11 @@
 
 集群规划1-省机器：
 
-![image](./pic/集群规划1.png)
+![image](./pic/集群规划1.jpg)
  
 集群规划2-清晰：
 
-![image](./pic/集群规划2.png)
+![image](./pic/集群规划2.jpg)
 
 
 # 【Task 3】HDFS常用命令/API+上传下载过程
