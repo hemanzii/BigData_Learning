@@ -1,4 +1,9 @@
-# BigData_Learning
+
+
+
+
+
+
 
 # 【Task1】创建虚拟机+熟悉linux(2day)
 
@@ -24,7 +29,7 @@
  5. 大数据软件 ：链接：[https://pan.baidu.com/s/17fEq3IPVoeE29cWCrSpO8Q](https://pan.baidu.com/s/17fEq3IPVoeE29cWCrSpO8Q) 提取码：finf 
 
 
-# 【Task 2】搭建Hadoop集群(2day)
+# 【Task 2】搭建Hadoop集群(3day)
 
 1. 搭建HA的Hadoop集群并验证，3节点(1主2从)，理解HA/Federation
 2. 阅读Google三大论文
@@ -38,16 +43,19 @@
 参考资料：
 [Google三大论文](https://blog.csdn.net/w1573007/article/details/52966742)
 
+
 集群规划1-省机器：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2019042014023351.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hlaXRhbzUyMDA=,size_16,color_FFFFFF,t_70)
 
-![image](pic/集群规划1.jpg)
- 
+
 集群规划2-清晰：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190420140245947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hlaXRhbzUyMDA=,size_16,color_FFFFFF,t_70)
 
-![image](pic/集群规划2.jpg)
 
 
-# 【Task 3】HDFS常用命令/API+上传下载过程(2day)
+
+
+# 【Task 3】HDFS常用命令/API+上传下载过程
 1. 认识HDFS
 2. 熟悉hdfs常用命令
 3. Python操作HDFS的其他API
@@ -63,7 +71,7 @@
 
 
 
-# 【Task5】Spark常用API(3day)
+# 【Task5】Spark常用API
  1. spark集群搭建
  2. 初步认识Spark （解决什么问题，为什么比Hadoop快，基本组件及架构Driver/）
  3. 理解spark的RDD
@@ -88,7 +96,7 @@
 运行spark-shell时添加jar：spark-shell --jars [jblas path] /jblas-1.2.4.jar
 
 
-# 【Task6】Hive原理及其使用(2day)
+# 【Task6】Hive原理及其使用
 1. 安装MSQL、Hive
 2. 采用MySQL作为hive元数据库
 3. Hive与传统RDBMS的区别
@@ -112,7 +120,7 @@
 
 
 
-# 【Task7】实践(2day)
+# 【Task7】实践
 1. 计算每个content的CTR。
 数据集下载：链接：https://pan.baidu.com/s/1YDvBWp35xKLg5zsysEjDGA 提取码：rpgs 
 2. 【选做】 使用Spark实现ALS矩阵分解算法，
@@ -123,3 +131,66 @@ movielen 数据集：http://files.grouplens.org/datasets/movielens/ml-100k.zip
 **preprocess**
 	* Spark LR
 	* Spark TFIDF
+
+
+
+0.Linux
+linux 常用命令 
+shell 变量/函数
+
+1. Hadoop
+
+0 Google三大论文
+a Hadoop的作用（解决了什么问题）/运行模式/基础组件及架构
+b 学会搭建部署Hadoop集群（VM/Docker），理解HA/Federation
+c 学会阅读HDFS源码，并自己阅读一段HDFS的源码，推荐HDFS上传/下载过程
+d Hadoop中各个组件的通信方式，RPC/Http等
+e 学会写WordCount（Java/Python-Hadoop Streaming），理解分布式/单机运行模式的区别
+f   理解MapReduce的执行过程
+g Yarn在Hadoop中的作用
+
+2. Spark
+
+a 初步认识Spark （解决什么问题，为什么比Hadoop快，基本组件及架构Driver/）
+b 理解RDD
+c 学会阅读Spark源码，整理Spark任务submit过程
+d 理解Spark的shuffle过程
+e 学会使用SparkStreaming
+
+3. Hive
+
+a Hive的作用
+b HQL，Hive与MySql的区别
+c Hive内部表/外部表，分区/分桶
+d Hive UDF
+
+
+4. Hbase
+
+a Hbase的作用
+b Hbase基础组件及架构
+c Hbase的重要流程（读写）
+d 学会阅读Hbase源码
+
+5. Kafka
+
+a Kafka的作用
+b Kafka的基础组件及架构
+c Kafka的重要流程（读写）
+d 学会阅读Kafka源码，offset的维护
+
+1. 实时处理/Spark Streaming / Flink / 
+2. 分布式一致性 zk
+
+3. 参考书籍
+
+《Hadoop技术内幕》
+《Spark快速大数据分析》
+《Hive用户指南》
+《HBase企业应用开发实战》
+
+《从Paxos到Zookeeper：分布式一致性原理与实践》
+# 参考资料：
+链接：[https://pan.baidu.com/s/150y2xJgQ2qUQXM6NBTGdbg](https://pan.baidu.com/s/150y2xJgQ2qUQXM6NBTGdbg) 
+提取码：v4ii 
+复制这段内容后打开百度网盘手机App，操作更方便哦
