@@ -39,25 +39,12 @@
 [Google三大论文](https://blog.csdn.net/w1573007/article/details/52966742)
 
 集群规划1-省机器：
-| 主机名 | IP | 安装的软件 | 运行的进程 | 
-|:----|:----|----|----|
-| DW1   | 192.168.1.201 | jdk hadoop zk | NameNode 、  SecondaryNameNode、  ResourceManager、  DataNode、NodeManager、  QuorumPeerMain   | 
-| DW2   | 192.168.1.202 | jdk hadoop zk | DataNode、NodeManager  QuorumPeerMain   | 
-| DW3   | 192.168.1.203 | jdk hadoop zk | DataNode、NodeManager、QuorumPeerMain   | 
 
-
+![image](./pic/集群规划1.png)
+ 
 集群规划2-清晰：
-| 主机名   | IP   | 安装的软件   | 运行的进程   | 
-|:----|:----|:----|:----|
-| hadoop01   | 192.168.1.201   | jdk、hadoop   | NameNode、DFSZKFailoverController(zkfc)   | 
-| hadoop02   | 192.168.1.202   | jdk、hadoop   | NameNode、DFSZKFailoverController(zkfc)   | 
-| hadoop03   | 192.168.1.203   | jdk、hadoop   | ResourceManager   | 
-| hadoop04   | 192.168.1.204   | jdk、hadoop   | ResourceManager   | 
-| hadoop05   | 192.168.1.205   | jdk、hadoop、zookeeper   | DataNode、NodeManager、JournalNode、QuorumPeerMain   | 
-| hadoop06   | 192.168.1.206   | jdk、hadoop、zookeeper   | DataNode、NodeManager、JournalNode、QuorumPeerMain   | 
-| hadoop07   | 192.168.1.207   | jdk、hadoop、zookeeper   | DataNode、NodeManager、JournalNode、QuorumPeerMain   | 
 
-
+![image](./pic/集群规划2.png)
 
 
 # 【Task 3】HDFS常用命令/API+上传下载过程
