@@ -105,13 +105,16 @@
 6. Hive内部表/外部表/分区
 
 
-参考资料：[https://www.shiyanlou.com/courses/running](https://www.shiyanlou.com/courses/running)  
+参考资料：
+
+
+[https://www.shiyanlou.com/courses/running](https://www.shiyanlou.com/courses/running)  
 
 [MySQL安装](https://blog.csdn.net/z13615480737/article/details/78906598)
 
 [采用MySQL作为hive元数据库](https://blog.csdn.net/u010003835/article/details/80324038)
 
-[HiveonSpark环境部署](https://www.cnblogs.com/xinfang520/p/7684605.html)
+[Hive on Spark环境部署](https://www.cnblogs.com/xinfang520/p/7684605.html)
 
 [https://blog.csdn.net/qq_26937525/article/details/54136317](https://blog.csdn.net/qq_26937525/article/details/54136317)
 
@@ -121,13 +124,21 @@
 
 
 # 【Task7】实践
+
 1. 计算每个content的CTR。
+
 数据集下载：链接：https://pan.baidu.com/s/1YDvBWp35xKLg5zsysEjDGA 提取码：rpgs 
-2. 【选做】 使用Spark实现ALS矩阵分解算法，
+
+2. 【选做】 使用Spark实现ALS矩阵分解算法
+
 movielen 数据集：http://files.grouplens.org/datasets/movielens/ml-100k.zip
+
  [基于ALS矩阵分解算法的Spark推荐引擎实现](https://www.cnblogs.com/muchen/p/6882465.html)
+
 3. 使用Spark分析Amazon DataSet(实现 Spark LR、Spark TFIDF)
+
 数据集：[http://jmcauley.ucsd.edu/data/amazon/](http://jmcauley.ucsd.edu/data/amazon/)
+
 **preprocess**
 	* Spark LR
 	* Spark TFIDF
