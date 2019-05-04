@@ -1,209 +1,177 @@
-# 【Task5】Hive原理及其使用
-参考资料：[https://www.shiyanlou.com/courses/running](https://www.shiyanlou.com/courses/running)  
-1. 认识Hive 
 
-Hive通常用于数据仓库，可存储/查询结构化数据等，其优势在于存储量极大，可以存储数百亿/千亿（TB/PB）级别的数据。相较于传统的RDBMS，只能存储千万/亿级数据，有很大优势。
-其底层存储依赖于HDFS，因此可以水平扩展，
-元信息存储在derby或mysql中，
-查询使用HQL，底层使用MapReduce实现。
-2. Hive与传统RDBMS的区别
+# 【Task6】Spark常用API
+1. 认识Spark
 
-![图片](https://uploader.shimo.im/f/oDAkyhkq53QNPfmS.png!thumbnail)
-3. HIve原理及架构图
+1.1 Spark的组件
+Driver
+Cluster Manager
+Worker
+1.2 Spark的运行模式
+![图片](https://uploader.shimo.im/f/SSa5pJaGzo8dsJVX.png!thumbnail)
+2. Spark的RDD
 
-![图片](https://uploader.shimo.im/f/HabOpjzJvqogI6mr.png!thumbnail)
-a、 用户接口主要有三个： CLI， Client 和 WUI。其中最常用的是 CLI， Cli 启动的时候，
-会同时启动一个 Hive 副本。 Client 是 Hive 的客户端，用户连接至 Hive Server。
-在启动 Client 模式的时候，需要指出 Hive Server 所在节点，并且在该节点启动 Hive
-Server。 WUI 是通过浏览器访问 Hive。
-b、 元数据：Hive 将元数据存储在数据库中，如 mysql、 derby。 Hive 中的元数据包括表的名字，表的列和分区及其属性，表的属性（是否为外部表等），表的数据所在目录等。
-c、 HQL：解释器、编译器、优化器完成 HQL 查询语句从词法分析、语法分析、编译、优化以及查询计划的生成。生成的查询计划存储在 HDFS 中，并在随后有 MapReduce 调用执行。
-d、 Hadoop：Hive 的数据存储在 HDFS 中，大部分的查询由 MapReduce 完成（包含 * 的查询，比如 select * from tbl 不会生成 MapRedcue 任务）。
-4. HQL（Hive中的SQL）
-
-a. 准备数据
-b.建表
-```
-CREATE EXTERNAL TABLE datawhale.user_action
-(id INT,
-uid STRING,
-item_id STRING,
-behavior_type INT,
-item_category STRING,
-visit_date DATE,
-province STRING) COMMENT 'Welcome to datawhale!' 
-ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TEXTFILE LOCATION '/datawhale/user_action';
-```
-也可以先建表，再载入数据。
-
-c. 查看存在的表
-```
-show tables;
-```
-查看表结构
-```
-desc datawhale.user_action;
-```
-d. 筛选10条看看
-```
-select * from datawhale.user_action limit 10;
-```
-e. 查询表内共多少行数据
-```
-select count(*) from datawhale.user_action;
-```
-f. 查询不重复的uid共多少行
-```
-select count(distinct uid) from datawhale.user_action;
-```
-g. 查询2014年12月10日到2014年12月14日有多少人浏览了商品
-```
-select count(*) from datawhale.user_action where behavior_type='1' and visit_date<='2014-12-14' and visit_date>='2014-12-10';
-```
-h 查询一件商品的购买率
-i. 查询某一天在该网站购买商品超过5次的用户id
-```
-select uid from datawhale.user_action where behavior_type='4' and visit_date='2014-12-12' group by uid having count(behavior_type='4')>5;
-```
-h. 创建中间表，存储每个地区有多少用户浏览了网站
-```
-create table datawhale.province_user_dist(
-province STRING,
-view INT) 
-COMMENT 'This is the count of user of each city' 
-ROW FORMAT DELIMITED FIELDS 
-TERMINATED BY '\t' STORED AS TEXTFILE;
-```
-#覆盖式的导入数据(有问题)
-```
-insert overwrite table datawhale.provice_user_count
- select province,count(behavior_type)
-from datawhale.user_action 
-where behavior_type='1' group by province;
-```
-Tips：试想，如果你的表特别的大，有没有什么可以优化的地方？
-当然有，比如分区分桶，分区分桶可以从一定程度上提高查询效率。
-
-5. Hive内部表/外部表/分区
-
-内部表（managed table）
-* 默认创建的是内部表（managed table），存储位置在hive.metastore.warehouse.dir设置，默认位置是/user/hive/warehouse。
-* 导入数据的时候是将文件剪切（移动）到指定位置，即原有路径下文件不再存在
-* 删除表的时候，数据和元数据都将被删除
-* 默认创建的就是内部表create table xxx (xx xxx)
-
-外部表（external table）
-* 外部表文件可以在外部系统上，只要有访问权限就可以
-* 外部表导入文件时不移动文件，仅仅是添加一个metadata
-* 删除外部表时原数据不会被删除
-* 分辨外部表内部表可以使用DESCRIBE FORMATTED table_name命令查看
-* 创建外部表命令添加一个external即可，即create external table xxx (xxx)
-* 外部表指向的数据发生变化的时候会自动更新，不用特殊处理
-
-表分区（Partitioned table）
-* 有些时候数据是有组织的，比方按日期/类型等分类，而查询数据的时候也经常只关心部分数据，比方说我只想查2017年8月8号，此时可以创建分区
-
-数据准备：
-movielen
-user item rate thedate
-分区表的创建：
-```
-create table datawhale.user_action_partition(
-user      int comment "user id",
-item      int comment "teim_id",
-rate      int comment "rate"    
-)
-partitioned by (thedate string);
-```
-查询分区；
-```
-show partitions datawhale.user_action_partition;
-```
-插入分区。
-
-删除分区。
-```
-ALTER TABLE  table_name DROP PARTITION (thedate='20000101')
-```
-分区表的查询。
-思考一下，为什么要使用分区表？
-
-参考:
-[https://www.cnblogs.com/wswang/p/7718103.html](https://www.cnblogs.com/wswang/p/7718103.html)
-
-6. HiveUDF
-
-demo1：
-这里用python自定义函数，去实现一个方法，利用身份证号去判断性别(18位身份证的倒数第二位偶数为女，奇数为男.15位身份证的倒数第一位偶数为女,奇数为男.).其实这个需求可以使用hive自带的function去进行解决.我们接下来使用2种方式去实现这个需求.
-数据：
-```
-neil    411326199402110030
-pony    41132519950911004x
-jcak    12312423454556561
-tony    412345671234908
-```
-HQL：
-```
-select idcard,
-case when length(idcard) = 18 then
-             case when substring(idcard,-2,1) % 2 = 1 then '男' 
-             when substring(idcard,-2,1) % 2 = 0 then '女' 
-             else 'unknown' end 
-     when length(idcard) = 15 then 
-            case when substring(idcard,-1,1) % 2 = 1 then '男'
-            when substring(idcard,-1,1) % 2 = 0 then '女'
-            else 'unknown' end
-     else '不合法' end 
-from person;
-```
-hive udf：
-```
-# -*- coding: utf-8 -*-
-import sys
-
-for line in sys.stdin:
-    detail = line.strip().split("\t")
-    if len(detail) != 2:
-        continue
-    else:
-        name = detail[0]
-        idcard = detail[1]
-        if len(idcard) == 15:
-            if int(idcard[-1]) % 2 == 0:
-                print("\t".join([name,idcard,"女"]))
-            else:
-                print("\t".join([name,idcard,"男"]))
-        elif len(idcard) == 18:
-            if int(idcard[-2]) % 2 == 0:
-                print("\t".join([name,idcard,"女"]))
-            else:
-                print("\t".join([name,idcard,"男"]))
-        else:
-            print("\t".join([name,idcard,"身份信息不合法!"]))
-```
-
-===测试
-```
-cat person.txt|python person.py
-```
-===udf
-```
-add file hiveudf.py
-select transform(name,idcard) USING 'python person.py'  AS (name,idcard,gender) from person;
-```
-
-1. 文件开头的 add file 语句将 hiveudf.py 文件添加到分布式缓存，使群集中的所有节点都可访问该文件。
-2. SELECT TRANSFORM ... USING 语句从 hivesampletable 中选择数据。 它还将 name、idcard值传递到 hiveudf.py 脚本。
-3. AS 子句描述从 hiveudf.py 返回的字段。
-
-脚本文件：
-1. 从 STDIN 读取一行数据。
-2. 尾随的换行符使用 string.strip()删除。
-3. 执行流式处理时，一个行就包含了所有值，每两个值之间有一个制表符。 因此， string.split("\t") 可用于在每个制表符处拆分输入，并只返回字段。
-4. 在处理完成后，必须将输出以单行形式写入到 STDOUT，并在每两个字段之间提供一个制表符。
+RDD是弹性分布式数据集。
+弹性的意思是当保存RDD的一台机器遇到错误时，Spark可以根据lineage谱系图重新计算出这些RDD。
+分布式的意思是，这些对象集合（分区）被分布式的存储在集群中的不同节点上。
+Spark 中的 RDD 就是一个不可变的分布式对象集合。每个 RDD 都被分为多个分区，这些分区在集群中的不同节点上。
+初次之外，RDD还包含了一些操作API，例如常见的map，reduce，filter等。
 
 
+1. 使用shell方式操作Spark
 
-参考：
-1. [https://blog.csdn.net/qq_26937525/article/details/54136317](https://blog.csdn.net/qq_26937525/article/details/54136317)
-2. [https://docs.azure.cn/zh-cn/hdinsight/hadoop/python-udf-hdinsight](https://docs.azure.cn/zh-cn/hdinsight/hadoop/python-udf-hdinsight)
+Tips：建议先准备在home目录下新建workspace/learnspark/目录
+```
+cd ~
+mkdir -r workspace/learnspark/
+cd workspace/learnspark/
+```
+vim test.txt 输入i进入编辑模式
+![图片](https://uploader.shimo.im/f/YBTdQuvjZmcOMw4p.png!thumbnail)
+保存退出(esc+:wq)
+
+a. 进入交互式编程环境，打开终端，在终端输入pyspark，便可进入pyspark环境。进入pyspark环境后，会初始化好SparkContext。
+![图片](https://uploader.shimo.im/f/HtDpzdLFTEcTDySN.png!thumbnail)
+b. 创建rdd
+通常有两种方式创建RDD，一种是读取外部数据集，另外一种是使用已有的对象集合。
+1. 使用已有的对象集合
+
+![图片](https://uploader.shimo.im/f/hsY7c66eALwFMiDd.png!thumbnail)
+2. 读取外部数据集(注意更换目录)
+
+![图片](https://uploader.shimo.im/f/NXGUxVEHgUYQqYTE.png!thumbnail)
+1. 基础的API操作，为了简便，下面如果未声明，均使用第一种方式创建rdd，这也是在工作中快速验证rdd API功能的最简便快捷的方式。
+
+map：数据集中的每个元素经过用户自定义的函数转换形成一个新的RDD
+![图片](https://uploader.shimo.im/f/FzR9wr6B95wyqHiP.png!thumbnail)
+我们自定义了一个lambda函数，使得每个元素+1.
+那么，这和普通的python list操作有什么区别的？试想，当list的元素在百万，千万级别的时候，python还尚能处理这种逻辑，假如集合中的元素是百亿，千亿级别呢，这个时候就需要依靠Spark处理了。这也正是RDD要解决的问题，海量大数据处理。
+map示意图，其中红色方框代表分区
+![图片](https://uploader.shimo.im/f/FQUIV6h4GekksRCc.png!thumbnail)
+union 两个rdd的并集
+![图片](https://uploader.shimo.im/f/RdMtyRfXuN8T4iPV.png!thumbnail)
+intersection 两个rdd的交集，注意这里声明了一个新的rdd7= 5，2，1和rdd5=5，2，0的交集是5，2
+![图片](https://uploader.shimo.im/f/gTGsg7oxYQcBDfTg.png!thumbnail)
+filter: 过滤，筛选出符合条件的元素
+![图片](https://uploader.shimo.im/f/0XusZIDPAWIy3S1R.png!thumbnail)
+distinct：去重
+![图片](https://uploader.shimo.im/f/XGz9rohJT5g5No2E.png!thumbnail)
+cartesian：笛卡儿积
+![图片](https://uploader.shimo.im/f/xcSKgUY8sjIG3kLx.png!thumbnail)
+reduce： 将rdd中元素两两传递给输入函数，同时产生一个新的值，新产生的值与RDD中下一个元素再被传递给输入函数直到最后只有一个值为止。
+![图片](https://uploader.shimo.im/f/JEhe2De5rM83vVke.png!thumbnail)
+groupByKey：对于kv类型的数据，按key分组
+![图片](https://uploader.shimo.im/f/F95ytsCVFRg3q5cx.png!thumbnail)
+
+需要说明的是，spark RDD的算子分为两种，一种是transformation，例如map，filter；另外一种是action，例如collect(),count(),groupByKey()等。只有action算子才会真正的触发计算。
+
+RDD API问题与作业
+1. 尽可能多的练习RDD的其他API，包括sortBy,join,reduceByKey,take,first,count,countByKey等。
+2. 整理自己学习过的RDD算子，并给他们按照transformation和action进行归类，画出思维导图。
+3. 说一说take,collect,first的区别，为什么不建议使用collect？(虽然我用了。。。)
+1. 向集群提交Spark程序
+
+可以在jupyter book中使用spark，也可以在pySpark中直接使用（会自动创建spark context）
+不过更常用的是，将job提交到集群中运行。
+4.1 先来体验一下Spark版本的wordcount吧
+wc.py
+```
+import os
+from pyspark import SparkConf,SparkContext
+
+conf = SparkConf().setMaster('local').setAppName('word count')
+sc = SparkContext(conf = conf)
+```
+
+#注意将这里改成自己的路径 
+```
+import os
+from pyspark import SparkConf,SparkContext
+
+conf = SparkConf().setMaster('local').setAppName('word count')
+sc = SparkContext(conf = conf)
+
+#注意将这里改成自己的路径 
+text_file = sc.textFile('hdfs:///test/The_Man_of_Property.txt')
+ 
+count = text_file.flatMap(lambda line:line.split(" ")).map(lambda word:(word,1)).reduceByKey(lambda a,b:a+b).sortBy(ascending=False, numPartitions=None, keyfunc = lambda x: x[1]) 
+
+print(count.take(10))
+
+#拿出一些结果先看看
+print(count_rdd.take(50))
+#保存结果
+count_rdd.saveAsTextFile('hdfs:///datawhale/out/')
+```
+
+**提交：****bin/spark-submit --master spark://host:port --executor-memory 2g wc.py**
+4.2 wordcount 的另外一种写法
+```
+def splitx():
+    return line.split(" ")
+
+count = textfile.flatMap(splitx) \
+                    .map(lambda word:(word,1)) \
+                    .reduceByKey(lambda a,b:a+b)
+```
+这里想说明的是，map/reduce等算子，不仅可以接受lamda函数作为参数，也可以接受自定义的函数，直接把函数名传进去即可。
+
+
+任务：
+1. 使用上述API计算《The man of property》中共出现过多少不重复的单词，以及出现次数最多的10个单词。
+
+movielen 数据集：[http://files.grouplens.org/datasets/movielens/ml-1m.zip](http://files.grouplens.org/datasets/movielens/ml-1m.zip)
+2. 计算出movielen中，每个用户最喜欢的前5部电影。
+```
+运行pyspark
+import pandas as pd
+# 读取文件
+user_data = sc.textFile("/test/users.dat")
+movie_data = sc.textFile("/test/movies.dat")
+ratings_data = sc.textFile("/test/ratings.dat")
+# 切分数据
+user_rdd = user_data.map(lambda line: line.split("::"))
+movie_rdd = movie_data.map(lambda line: line.split("::"))
+ratings_rdd = ratings_data.map(lambda line: line.split("::"))
+# 将RDD转化为DF
+user_df = sqlContext.createDataFrame(user_rdd).toPandas()
+movie_df = sqlContext.createDataFrame(movie_rdd).toPandas()
+ratings_df = sqlContext.createDataFrame(ratings_rdd).toPandas()
+# Rename列名
+user_df.columns = ['UserID','Gender',"Age","Occupation","Zip-code"]
+ratings_df.columns = ['UserID','MovieID',"Rating","Timestamp"]
+movie_df.columns = ['MovieID','Title',"Genres"]
+#将三张表合并成一张表
+total_df = pd.merge(ratings_df,user_df,on = ["UserID"],how = "right")
+total_df = pd.merge(total_df,movie_df,on = ["MovieID"],how = "left")
+# 聚合操作
+c = total_df["Title"].groupby(total_df["UserID"])
+# 取出前5ge
+second = c.agg(lambda x: x.value_counts().index[1]).reset_index()
+first = c.agg(lambda x: x.value_counts().index[0]).reset_index()
+third = c.agg(lambda x: x.value_counts().index[2]).reset_index()
+fourth = c.agg(lambda x: x.value_counts().index[3]).reset_index()
+fifth = c.agg(lambda x: x.value_counts().index[4]).reset_index()
+# 创建新的的DF
+like = pd.DataFrame()
+like["UserID"] = first.UserID
+like["first"] = first.Title
+like["second"] = second.Title
+like["third"] = third.Title
+like["fourth"] = fourth.Title
+```
+3. like["fifth"] = fifth.Title
+
+print(like[:5])
+
+计算出movielen数据集中，平均评分最高的五个电影。
+```
+total_df.groupby('Title')['Rating'].mean().reset_index().sort_values("Rating",ascending = False)[:5]
+```
+4. 【选做】 计算出movielen用户的行为相似度（相似度采用Jaccard相似度）。
+
+参考资料：[远程连接jupyter](https://blog.csdn.net/qq_18293213/article/details/72910834)
+
+【没有jblas库解决办法】
+下载jblas包 ：[https://pan.baidu.com/s/1o8w6Wem](https://pan.baidu.com/s/1o8w6Wem)
+运行spark-shell时添加jar：spark-shell --jars [jblas path] /jblas-1.2.4.jar
+
