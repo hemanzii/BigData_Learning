@@ -1,25 +1,15 @@
+# 【Task4】MapReduce+MapReduce执行过程
+1. MR原理
+2. 使用Hadoop Streaming -python写出WordCount
+3. 使用mr计算movielen中每个用户的平均评分。
+4. 使用mr实现去重任务。
+5. 使用mr实现排序。
+6. 使用mapreduce实现倒排索引。
+7. 使用mr实现join功能。
+8. 使用mapreduce计算Jaccard相似度。
+9. 使用mapreduce实现PageRank。
 
 
-# 【Task4】Spark常用API
- 1. spark集群搭建
- 2. 初步认识Spark （解决什么问题，为什么比Hadoop快，基本组件及架构Driver/）
- 3. 理解spark的RDD
- 4. 使用shell方式操作Spark，熟悉RDD的基本操作
- 5. 学会阅读Spark源码，整理Spark任务submit过程
- 6. 理解Spark的shuffle过程
- 7. 学会使用SparkStreaming
- 8. 说一说take,collect,first的区别，为什么不建议使用collect？(虽然我用了。。。)
- 9. 向集群提交Spark程序
- 10. 使用spark计算《The man of property》中共出现过多少不重复的单词，以及出现次数最多的10个单词。 
- 11. 计算出movielen数据集中，平均评分最高的五个电影。
- 12. 计算出movielen中，每个用户最喜欢的前5部电影
+参考: [https://segmentfault.com/a/1190000002672666](https://segmentfault.com/a/1190000002672666)
 
-参考资料：
-
-[远程连接jupyter](https://blog.csdn.net/qq_18293213/article/details/72910834)
-
-【没有jblas库解决办法】
-
-下载jblas包 ：[https://pan.baidu.com/s/1o8w6Wem](https://pan.baidu.com/s/1o8w6Wem)
-
-运行spark-shell时添加jar：spark-shell --jars [jblas path] /jblas-1.2.4.jar
+参考资料：[Python3调用Hadoop的API](https://www.cnblogs.com/sss4/p/10443497.html)

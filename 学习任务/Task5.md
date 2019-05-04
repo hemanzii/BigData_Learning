@@ -1,25 +1,26 @@
 
-# 【Task5】Hive原理及其使用
-1. 安装MSQL、Hive
-2. 采用MySQL作为hive元数据库
-3. Hive与传统RDBMS的区别
-4. HIve原理及架构图
-5. HQL的基本操作（Hive中的SQL）
-6. Hive内部表/外部表/分区
 
+# 【Task5】Spark常用API
+ 1. spark集群搭建
+ 2. 初步认识Spark （解决什么问题，为什么比Hadoop快，基本组件及架构Driver/）
+ 3. 理解spark的RDD
+ 4. 使用shell方式操作Spark，熟悉RDD的基本操作
+ 5. 使用jupyter连接集群的pyspark
+ 6. 理解Spark的shuffle过程
+ 7. 学会使用SparkStreaming
+ 8. 说一说take,collect,first的区别，为什么不建议使用collect？(虽然我用了。。。)
+ 9. 向集群提交Spark程序
+ 10. 使用spark计算《The man of property》中共出现过多少不重复的单词，以及出现次数最多的10个单词。 
+ 11. 计算出movielen数据集中，平均评分最高的五个电影。
+ 12. 计算出movielen中，每个用户最喜欢的前5部电影
+ 13. 学会阅读Spark源码，整理Spark任务submit过程
 
 参考资料：
 
+[远程连接jupyter](https://blog.csdn.net/qq_18293213/article/details/72910834)
 
-[https://www.shiyanlou.com/courses/running](https://www.shiyanlou.com/courses/running)  
+【没有jblas库解决办法】
 
-[MySQL安装](https://blog.csdn.net/z13615480737/article/details/78906598)
+下载jblas包 ：[https://pan.baidu.com/s/1o8w6Wem](https://pan.baidu.com/s/1o8w6Wem)
 
-[采用MySQL作为hive元数据库](https://blog.csdn.net/u010003835/article/details/80324038)
-
-[Hive on Spark环境部署](https://www.cnblogs.com/xinfang520/p/7684605.html)
-
-[https://blog.csdn.net/qq_26937525/article/details/54136317](https://blog.csdn.net/qq_26937525/article/details/54136317)
-
-[https://docs.azure.cn/zh-cn/hdinsight/hadoop/python-udf-hdinsight](https://docs.azure.cn/zh-cn/hdinsight/hadoop/python-udf-hdinsight)
-
+运行spark-shell时添加jar：spark-shell --jars [jblas path] /jblas-1.2.4.jar

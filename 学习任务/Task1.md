@@ -19,4 +19,4 @@
  2. [bash: wget: command not found的两种解决方法](https://www.cnblogs.com/areyouready/p/8909665.html)
  3. linux系统下载ssh服务
  4. [关闭windows的防火墙！如果不关闭防火墙的话，可能和虚拟机直接无法ping通！](https://www.linuxidc.com/Linux/2017-11/148427.htm)
- 5. 大数据软件 ：链接：[https://pan.baidu.com/s/17fEq3IPVoeE29cWCrSpO8Q](https://pan.baidu.com/s/17fEq3IPVoeE29cWCrSpO8Q) 提取码：finf
+ 5. 大数据软件 ：[链接](https://pan.baidu.com/s/17fEq3IPVoeE29cWCrSpO8Q) 提取码：finf

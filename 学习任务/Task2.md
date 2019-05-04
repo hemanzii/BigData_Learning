@@ -1,10 +1,10 @@
 
 # 【Task 2】搭建Hadoop集群(3day)
 
-1. 搭建HA的Hadoop集群并验证，3节点(1主2从)，理解HA/Federation
-2. 阅读Google三大论文
+1. 搭建HA的Hadoop集群并验证，3节点(1主2从)，理解HA/Federation,并截图记录搭建过程
+2. 阅读Google三大论文，并总结
 3. Hadoop的作用（解决了什么问题）/运行模式/基础组件及架构
-4. 学会阅读HDFS源码，并自己阅读一段HDFS的源码，推荐HDFS上传/下载过程
+4. 学会阅读HDFS源码，并自己阅读一段HDFS的源码(推荐HDFS上传/下载过程)
 5. Hadoop中各个组件的通信方式，RPC/Http等
 6. 学会写WordCount（Java/Python-Hadoop Streaming），理解分布式/单机运行模式的区别
 7. 理解MapReduce的执行过程

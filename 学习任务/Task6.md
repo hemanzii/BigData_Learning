@@ -1,22 +1,25 @@
 
-# 【Task6】实践
+# 【Task6】Hive原理及其使用
+1. 安装MySQL、Hive
+2. 采用MySQL作为hive元数据库
+3. Hive与传统RDBMS的区别
+4. HIve原理及架构图
+5. HQL的基本操作（Hive中的SQL）
+6. Hive内部表/外部表/分区
 
-1. 计算每个content的CTR。
 
-数据集下载：链接：https://pan.baidu.com/s/1YDvBWp35xKLg5zsysEjDGA 提取码：rpgs 
+参考资料：
 
-2. 【选做】 使用Spark实现ALS矩阵分解算法
 
-movielen 数据集：http://files.grouplens.org/datasets/movielens/ml-100k.zip
+[https://www.shiyanlou.com/courses/running](https://www.shiyanlou.com/courses/running)  
 
- [基于ALS矩阵分解算法的Spark推荐引擎实现](https://www.cnblogs.com/muchen/p/6882465.html)
+[MySQL安装](https://blog.csdn.net/z13615480737/article/details/78906598)
 
-3. 使用Spark分析Amazon DataSet(实现 Spark LR、Spark TFIDF)
+[采用MySQL作为hive元数据库](https://blog.csdn.net/u010003835/article/details/80324038)
 
-数据集：[http://jmcauley.ucsd.edu/data/amazon/](http://jmcauley.ucsd.edu/data/amazon/)
+[Hive on Spark环境部署](https://www.cnblogs.com/xinfang520/p/7684605.html)
 
-**preprocess**
-	
-	* Spark LR
-	
-	* Spark TFIDF
+[https://blog.csdn.net/qq_26937525/article/details/54136317](https://blog.csdn.net/qq_26937525/article/details/54136317)
+
+[https://docs.azure.cn/zh-cn/hdinsight/hadoop/python-udf-hdinsight](https://docs.azure.cn/zh-cn/hdinsight/hadoop/python-udf-hdinsight)
+
