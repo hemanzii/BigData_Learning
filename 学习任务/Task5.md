@@ -8,7 +8,7 @@
  5. 使用jupyter连接集群的pyspark
  6. 理解Spark的shuffle过程
  7. 学会使用SparkStreaming
- 8. 说一说take,collect,first的区别，为什么不建议使用collect？(虽然我用了。。。)
+ 8. 说一说take,collect,first的区别，为什么不建议使用collect？
  9. 向集群提交Spark程序
  10. 使用spark计算《The man of property》中共出现过多少不重复的单词，以及出现次数最多的10个单词。 
  11. 计算出movielen数据集中，平均评分最高的五个电影。
