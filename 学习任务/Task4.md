@@ -2,10 +2,10 @@
 1. MR原理
 2. 使用Hadoop Streaming -python写出WordCount
 3. 使用mr计算movielen中每个用户的平均评分。
-4. 使用mr实现去重任务。
-5. 使用mr实现排序。
-6. 使用mapreduce实现倒排索引。
-7. 使用mr实现join功能。
+4. 使用mr实现merge功能。根据item，merge movielen中的 u.data u.item
+5. 使用mr实现去重任务。
+6. 使用mr实现排序。
+7. 使用mapreduce实现倒排索引。
 8. 使用mapreduce计算Jaccard相似度。
 9. 使用mapreduce实现PageRank。
 
