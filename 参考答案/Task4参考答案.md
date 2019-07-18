@@ -6,7 +6,7 @@ hadoop streaming 原理
 2. 使用Hadoop Streaming -python写出WordCount
 
 Python版本
-1. 准备数据 
+2.1 准备数据 
 vim wc_input.txt
 ```
 hello
@@ -23,7 +23,7 @@ hadoop fs -mkdir -p /user/dw/wc/input/
 hadoop fs -mkdir -p /user/dw/wc/output/
 hadoop fs -put wc_input.txt /user/dw/wc/input/
 ``` 
-2. 编写map/reduce/run.sh(注意修改/path/to)
+2.2 编写map/reduce/run.sh(注意修改/path/to)
 mapper
 ```python
 import sys
@@ -110,7 +110,6 @@ import sys
 
 item_score = {}
 
-#Partitoner
 for line in sys.stdin:
     line = line.strip()
     item, score = line.split('\t')
@@ -121,14 +120,13 @@ for line in sys.stdin:
         item_score[item] = []
         item_score[item].append(int(score))
 
-#Reducer
 for item in item_score.keys():
     ave_score = sum(item_score[item])*1.0 / len(item_score[item])
     print '%s\t%s'% (item, ave_score)
 
 ```
 run.sh 略，参考以上run.sh
-1.3 check数据的正确性，自行编写python代码验证
+1.3 check结果的正确性，自行编写python代码验证
 
 2. 实现merge功能
 2.1 准备数据ml-100k
@@ -141,7 +139,6 @@ mapper.py
 ```python
 import sys
 
-# input comes from STDIN (standard input)
 for line in sys.stdin:
     line = line.strip()
     line = line.split(" ")
@@ -193,9 +190,121 @@ for user in ui_dict.keys():
 ```
 
 3. 使用mr实现去重任务。
+3.1 准备数据
+```
+1
+2
+3
+4
+5
+6
+1
+2
+3
+3
+```
+其他步骤同上
+3.2 map/reduce/run
+
+mapper.py
+```python
+import sys
+
+for line in sys.stdin:
+    print(line+'\t'+' ')
+```
+reducer.py
+```python
+import sys
+
+last_key = None
+for line in sys.stdin:
+    this_key = line.split('\t')[0].strip()
+    if this_key == last_key:
+        pass
+    else:
+        if last_key:
+            print(last_key)
+        last_key = this_key
+print(this_key)
+```
+
 4. 使用mr实现排序。
-5. 使用mapreduce实现倒排索引。。
-6. 使用mapreduce计算Jaccard相似度。
-7. 使用mapreduce实现PageRank。
+4.1 数据，使用上述计算的电影平均分作为输入
+
+4.2 编写map/reduce/run
+```python
+import sys
+ 
+for line in sys.stdin:
+	line = line.strip()
+	print('{0}'.format(line))
+```
+
+```python
+import sys
+ 
+for line in sys.stdin:
+	line = line.strip()
+	print("{0}".format(line))
+```
+
+```bash
+HADOOP_CMD="/path/to/hadoop"
+STREAM_JAR_PATH="/path/to/hadoop-streaming-2.6.1.jar"
+
+INPUT_FILE_PATH="/user/dw/wc/input/wc_input.txt"
+OUTPUT_PATH="/user/dw/wc/output"
+
+$HADOOP_CMD jar $STREAM_JAR_PATH \
+    -D stream.map.output.field.separator='\t' \
+    -D stream.num.map.output.key.fields=2 \
+    -D mapreduce.job.output.key.comparator.class=org.apache.hadoop.mapreduce.lib.partition.KeyFieldBasedComparator \
+    -D mapreduce.partition.keycomparator.options=-k2,2nr \ 
+    -input $INPUT_FILE_PATH \
+    -output $OUTPUT_PATH \
+    -mapper "python mapper.py" \
+    -reducer "python reducer.py" \
+    -file ./mapper.py \
+    -file ./reducer.py
+```
+
+5. 使用mapreduce实现倒排索引。
+
+mapper.py
+```python
+import os
+import sys
+
+docname = os.environ["map_input_file"]
+
+for line in sys.stdin:
+    line = line.strip().split(' ')
+    for word in line:
+        print('{1}\t{2}'.format(line,docname)
+
+```
+reducer.py
+```python
+import sys
+
+word_doc_dict ={}
+for line in sys.stdin:
+    line = line.strip()
+    word,docname = line.split('\t')
+
+    if word in word_doc_dict:
+        word_doc_dict[word].append(docname)
+    else:
+        word_doc_dict[word] = []
+        word_doc_dict[word].append(int(scdocname))
+
+for word in word_doc_dict.keys():
+    print('{1}\t{2}'.format(word,','.join(word_doc_dict[word]))
+
+```
+
+6. 使用mapreduce计算Jaccard相似度(参考spark实现)。
+7. 使用mapreduce实现PageRank(选做，答案略，自行查阅)。
 
 [Python3调用Hadoop的API](https://www.cnblogs.com/sss4/p/10443497.html)
