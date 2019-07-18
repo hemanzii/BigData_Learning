@@ -5,7 +5,10 @@
 3. [CentOS7配置阿里云yum源和EPEL源](https://www.cnblogs.com/jimboi/p/8437788.html)
 4. 安装jdk
 5. 熟悉linux 常用命令
-6. shell 变量/函数
+6. 熟悉，shell 变量/循环/条件判断/函数等
+
+shell小练习1：
+编写函数，实现将1-100追加到output.txt中，其中若模10等于0，则再追加输出一次。即10，20...100在这个文件中会出现两次。
 
 注意：
 * 电脑系统需要64位(4g+)
