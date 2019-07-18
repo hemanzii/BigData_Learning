@@ -3,6 +3,12 @@
 
 hadoop streaming 原理
 ![图片](https://uploader.shimo.im/f/C3e59L3B4aMHQ5Gf.png!thumbnail)
+
+作业思路
+a. 准备数据
+b. 写mr
+c. 执行并验证答案
+
 2. 使用Hadoop Streaming -python写出WordCount
 
 Python版本
@@ -27,16 +33,11 @@ hadoop fs -put wc_input.txt /user/dw/wc/input/
 mapper
 ```python
 import sys
-import re
 
-p = re.compile(r'\w+')
+
 for line in sys.stdin:
-	ss = line.strip().split(' ')
-	for s in ss:
-		if len(p.findall(s))<1:
-			continue
-		s_low = p.findall(s)[0].lower()
-		print(s_low+'\t'+'1')
+	word = line.strip()
+	print(word+'\t'+'1')
 
 ```
 
@@ -76,9 +77,9 @@ $HADOOP_CMD jar $STREAM_JAR_PATH \
     -file ./mapper.py \
     -file ./reducer.py
 ```
-3. 设置输入输出路径
-4. 执行，sh run.sh
-5. check答案
+2.3. 设置输入输出路径
+2.4. 执行，sh run.sh
+2.5. check答案
 ```bash
 hadoop fs -cat /user/dw/wc/output/part-00000
 ```
