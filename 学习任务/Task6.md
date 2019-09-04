@@ -1,11 +1,16 @@
 
 # 【Task6】Hive原理及其使用
+
+## 原理部分
+1. HIve原理及架构图
+2. Hive与传统RDBMS的区别
+3. Hive内部表/外部表/分区
+
+## 实践部分
 1. 安装MySQL、Hive
 2. 采用MySQL作为hive元数据库
-3. Hive与传统RDBMS的区别
-4. HIve原理及架构图
-5. HQL的基本操作（Hive中的SQL）
-6. Hive内部表/外部表/分区
+3. HQL的基本操作（Hive中的SQL）
+
 
 
 参考资料：
