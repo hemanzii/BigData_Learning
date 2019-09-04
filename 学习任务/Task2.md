@@ -8,7 +8,7 @@
 5. Hadoop的作用（解决了什么问题）/运行模式/基础组件及架构 
 6. 总结Hadoop中各个组件的通信方式，RPC/Http等（Client/NameNode/DataNode）
 
-实践
+## 实践部分
 1. 搭建Hadoop集群并验证，3节点(1主2从)，理解高可用HA/Federation,并截图记录搭建过程，建议在搭建集群的过程中，每进行一步，都check下这个步骤是否生效了。
 2. 学会写WordCount（Java/Python-Hadoop Streaming），理解分布式/单机运行模式的区别
 
