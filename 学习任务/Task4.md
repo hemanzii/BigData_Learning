@@ -25,11 +25,12 @@ u.data
 |166     |346     |1       |886397596  |  
 
 u.item    
-1|Toy Story (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?Toy%20Story%20(1995)|0|0|0|1|1|1|0|0|0|0|0|0|0|0|0|0|0|0|0)|
-2|GoldenEye (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?GoldenEye%20(1995)|0|1|1|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0)|
-3|Four Rooms (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?Four%20Rooms%20(1995)|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0)|
-4|Get Shorty (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?Get%20Shorty%20(1995)|0|1|0|0|0|1|0|0|1|0|0|0|0|0|0|0|0|0|0)|
-5|Copycat (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?Copycat%20(1995)|0|0|0|0|0|0|1|0|1|0|0|0|0|0|0|0|1|0|0)|
+|-|  ----  | ----  |  ----  | ----  | 
+|1|Toy Story (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?Toy%20Story%20(1995)|0|0|0|1|1|1|0|0|0|0|0|0|0|0|0|0|0|0|0)|
+|2|GoldenEye (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?GoldenEye%20(1995)|0|1|1|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0)|
+|3|Four Rooms (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?Four%20Rooms%20(1995)|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0)|
+|4|Get Shorty (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?Get%20Shorty%20(1995)|0|1|0|0|0|1|0|0|1|0|0|0|0|0|0|0|0|0|0)|
+|5|Copycat (1995)|01-Jan-1995|[链接](http://us.imdb.com/M/title-exact?Copycat%20(1995)|0|0|0|0|0|0|1|0|1|0|0|0|0|0|0|0|1|0|0)|
 
 merge操作说明，把itemid一致的拼接成一行
 
