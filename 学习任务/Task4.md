@@ -36,7 +36,7 @@ merge操作说明，把itemid一致的拼接成一行
 
 4. 使用mr实现去重任务（数据：任务1生成的distict.txt）。
 
-5. 使用mr实现排序(数据：sortdata.txt)。
+5. 使用mr实现排序(数据：data/randtxtaa+randtxtab)。
 6. 使用mapreduce计算Jaccard相似度(数据：movielen数据集)。
 note：每个用户看过的电影可以看作一个列表，求每个用户间的Jaccard相似度，取相似度最高的用户的TopK，K=10。
 7. 使用mapreduce实现PageRank。
